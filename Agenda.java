@@ -20,6 +20,9 @@ public class Agenda {
             String menu = "--- AGENDA ---\n"
                     + "Cadastrados: " + totalCadastrado + "/20\n\n"
                     + "1. Acrescentar nova pessoa\n"
+
+
+                    
                     + "2. Exibir agenda (Lista)\n"
                     + "3. Exibir agenda (Grid)\n"
                     + "4. Sair";
