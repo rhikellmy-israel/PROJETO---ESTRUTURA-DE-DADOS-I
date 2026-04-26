@@ -44,13 +44,13 @@ public class SistemaEscolar {
 
         for(int i =0; i<capacidade; i++){
             dados[i][0] = capacidade[i].getNome();
-            dados[i][1] = capacidade[i].getNotaMatematica();
-            dados[i][2] = capacidade[i].getNotaPortugues();
-            dados[i][3] = capacidade[i].getNotaHistoria();
-            dados[i][4] = capacidade[i].getNotaGeografia();
-            dados[i][5] = capacidade[i].getNotaCiencias();
-            dados[i][6] = capacidade[i].getMedia();
-            dados[i][7] = capacidade[i].getSituacao();
+            dados[i][1] = capacidade[i].pilha.getNotaMatematica();
+            dados[i][2] = capacidade[i].pilha.getNotaPortugues();
+            dados[i][3] = capacidade[i].pilha.getNotaHistoria();
+            dados[i][4] = capacidade[i].pilha.getNotaGeografia();
+            dados[i][5] = capacidade[i].pilha.getNotaCiencias();
+            dados[i][6] = capacidade[i].pilha.getMedia();
+            dados[i][7] = capacidade[i].pilha.getSituacao();
         } 
         
         JTable sistema = new JTable(dados, colunas);
