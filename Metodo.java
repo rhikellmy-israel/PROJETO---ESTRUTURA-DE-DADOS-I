@@ -15,32 +15,33 @@ public class Metodo {
 
         for (int i = 0; i < capacidade; i++) {
             System.out.println("Digite o nome do aluno:");
-            String nome = sc.nextLine();
-            sc.nextLine(); // Limpar o buffer
+            String Nome = sc.nextLine();
 
-            System.out.println("Digite a Nota de Matemática " );
+            System.out.println("Digite a Nota de Matemática de " + Nome);
             Double NotaMatematica = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de Português ");
+            System.out.println("Digite a Nota de Português de " + Nome);
             Double NotaPortugues = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de História " );
+            System.out.println("Digite a Nota de História de " + Nome);
             Double NotaHistoria = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de Geografia " );
+            System.out.println("Digite a Nota de Geografia de " + Nome);
             Double NotaGeografia = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de Ciencias " );
+            System.out.println("Digite a Nota de Ciencias de " + Nome);
             Double NotaCiencias = sc.nextDouble();
-            System.out.println(""); // Limpar o buffer
+            sc.nextLine(); // Limpar o buffer
+            System.out.println(""); // Pular linha para melhor visualização
 
-            Alunos novoAluno = new Alunos(nome, NotaMatematica, NotaPortugues, NotaHistoria, NotaGeografia, NotaCiencias);
+            Alunos novoAluno = new Alunos(Nome, NotaMatematica, NotaPortugues, NotaHistoria, NotaGeografia, NotaCiencias);
             pilha.inserir(novoAluno);
+
+            System.out.println("Aluno " + novoAluno.getNome() + " adicionado com sucesso!");
         }
-        System.out.println(pilha.pilha);
     }
 }
