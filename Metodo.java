@@ -11,12 +11,11 @@ public class Metodo {
         capacidade = sc.nextInt();
         sc.nextLine(); 
         PilhaEstatica pilha = new PilhaEstatica(capacidade);
-// Limpar o buffer
+        // Limpar o buffer
 
         for (int i = 0; i < capacidade; i++) {
             System.out.println("Digite o nome do aluno:");
             String nome = sc.nextLine();
-            sc.nextLine(); // Limpar o buffer
 
             System.out.println("Digite a Nota de Matemática " );
             Double NotaMatematica = sc.nextDouble();
@@ -36,11 +35,13 @@ public class Metodo {
 
             System.out.println("Digite a Nota de Ciencias " );
             Double NotaCiencias = sc.nextDouble();
-            System.out.println(""); // Limpar o buffer
+            sc.nextLine(); // Limpar o buffer
+            System.out.println(""); // Pula uma linha
 
             Alunos novoAluno = new Alunos(nome, NotaMatematica, NotaPortugues, NotaHistoria, NotaGeografia, NotaCiencias);
             pilha.inserir(novoAluno);
+
+            System.out.println("Aluno " + novoAluno.getNome() + " adicionado com sucesso!");
         }
-        System.out.println(pilha.pilha);
     }
 }
