@@ -1,27 +1,36 @@
-import java.util.Scanner;
-
 public class PilhaEstatica {
-    Alunos pilha[];
-    int topo;
+    private Alunos[] pilha;
+    private int topo;
 
     public PilhaEstatica(int capacidade){
-        this.pilha = new Alunos[capacidade];
-        this.topo = -1;
+        pilha = new Alunos[capacidade];
+        topo = -1;
     }
 
-    boolean cheia(){
+    public boolean cheia(){
         return topo == pilha.length - 1;
     }
 
-    boolean inserir(Alunos aluno){
-        if (cheia()){
-            return false;
-        }
-        topo++;
-        pilha[topo] = aluno;
+    public boolean vazia(){
+        return topo == -1;
+    }
+
+    public boolean push(Alunos aluno){
+        if (cheia()) return false;
+        pilha[++topo] = aluno;
         return true;
     }
-    public String getpilha(){
-        return java.util.Arrays.toString(pilha);
+
+    public Alunos pop(){
+        if (vazia()) return null;
+        return pilha[topo--];
+    }
+
+    public Alunos[] getPilha(){
+        return pilha;
+    }
+
+    public int getTopo(){
+        return topo;
     }
 }
