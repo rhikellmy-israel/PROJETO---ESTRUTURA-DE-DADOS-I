@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class PilhaEstatica{
     Alunos pilha[];
     String vet[];
@@ -21,4 +23,7 @@ public class PilhaEstatica{
         topo++; //o topo vai para o proximo elemnto, incrmentando meu topo
         return true; // conseguindo inserir o elemento
     }
+
+    //Metodo para adicionar alunos
+
 }

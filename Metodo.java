@@ -1,14 +1,17 @@
 import java.util.Scanner;
 
-public class Metodo() {
-    Scanner sc = new Scanner(System.in);
+public class Metodo {
 
     //Metodo para adicionar alunos
 
-    public void push(Alunos aluno){
+    public void cadastraralunos(){
+        int capacidade = 0;
         System.out.println("Quantos alunos você deseja adicionar?");
-        int capacidade = sc.nextInt();");
-        sc.nextLine(); // Limpar o buffer
+        Scanner sc = new Scanner(System.in);
+        capacidade = sc.nextInt();
+        sc.nextLine(); 
+        PilhaEstatica pilha = new PilhaEstatica(capacidade);
+// Limpar o buffer
 
         for (int i = 0; i < capacidade; i++) {
             System.out.println("Digite o nome do aluno:");
@@ -34,7 +37,8 @@ public class Metodo() {
             Double NotaCiencias = sc.nextDouble();
 
             Alunos novoAluno = new Alunos(nome, NotaMatematica, NotaPortugues, NotaHistoria, NotaGeografia, NotaCiencias);
-            Alunos.add(novoAluno);
-        }
+            pilha.push(novoAluno);
+            
     }
+}
 }
