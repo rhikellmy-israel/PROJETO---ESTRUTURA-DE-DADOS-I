@@ -4,7 +4,7 @@ public class Metodo {
 
     //Metodo para adicionar alunos
 
-    public void cadastraralunos(){
+    public void CadastroAlunos(){
         int capacidade = 0;
         System.out.println("Quantos alunos você deseja adicionar?");
         Scanner sc = new Scanner(System.in);
@@ -37,8 +37,7 @@ public class Metodo {
             Double NotaCiencias = sc.nextDouble();
 
             Alunos novoAluno = new Alunos(nome, NotaMatematica, NotaPortugues, NotaHistoria, NotaGeografia, NotaCiencias);
-            pilha.push(novoAluno);
-            
+            pilha.inserir(novoAluno);
+        }
     }
-}
 }
