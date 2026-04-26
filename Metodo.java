@@ -57,10 +57,11 @@ public class Metodo {
         if (topo == -1){
             return null;
         }
-        Alunos aluno = pilha[topo];
+        Alunos aluno = pilha2[topo];
         topo--;
         return aluno;
     }
+    
 
     //Método para calcular a média e situação dos alunos
     public void CalcularSituacao(){
