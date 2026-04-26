@@ -21,4 +21,7 @@ public class PilhaEstatica {
         pilha[topo] = aluno;
         return true;
     }
+    public String getpilha(){
+        return java.util.Arrays.toString(pilha);
+    }
 }

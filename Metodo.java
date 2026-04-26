@@ -16,28 +16,31 @@ public class Metodo {
         for (int i = 0; i < capacidade; i++) {
             System.out.println("Digite o nome do aluno:");
             String nome = sc.nextLine();
+            sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de Matemática do" + nome + ":");
+            System.out.println("Digite a Nota de Matemática " );
             Double NotaMatematica = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de Português do" + nome + ":");
+            System.out.println("Digite a Nota de Português ");
             Double NotaPortugues = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de História do" + nome + ":");
+            System.out.println("Digite a Nota de História " );
             Double NotaHistoria = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de Geografia do" + nome + ":");
+            System.out.println("Digite a Nota de Geografia " );
             Double NotaGeografia = sc.nextDouble();
             sc.nextLine(); // Limpar o buffer
 
-            System.out.println("Digite a Nota de Ciencias do" + nome + ":");
+            System.out.println("Digite a Nota de Ciencias " );
             Double NotaCiencias = sc.nextDouble();
+            System.out.println(""); // Limpar o buffer
 
             Alunos novoAluno = new Alunos(nome, NotaMatematica, NotaPortugues, NotaHistoria, NotaGeografia, NotaCiencias);
             pilha.inserir(novoAluno);
         }
+        System.out.println(pilha.pilha);
     }
 }
