@@ -124,16 +124,9 @@ private Double NotaValidade(JTextField campo, String nomeCampo) {
 
                 JOptionPane.showMessageDialog(null, "Aluno " + campoNome.getText() + " adicionado com sucesso!");
             }
-
-        
     }
 
         }
-
-
-
-
-
 
     public void CalcularSituacao(){
 
@@ -167,7 +160,6 @@ private Double NotaValidade(JTextField campo, String nomeCampo) {
         }
     }
     
-
     public void ExibirAlunos(){
 
         String[] colunas = {"Nome", "Nota Matemática", "Nota Português", "Nota História", "Nota Geografia", "Nota Ciências", "Média", "Situação"};
