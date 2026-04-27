@@ -41,25 +41,39 @@ public class SistemaEscolar {
     }while (opcao != 4);
     }
 
-    private double NotaValidade (JTextField campo, String nomeCampo) {
-                double nota;
-                while (true) {
-                    try {
-                        nota = Double.parseDouble(campo.getText());
-                        if (nota >= 0 && nota <= 10) {
-                            return nota;
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Nota inválida para " + nomeCampo + ". deve ser entre 0 e 10.");                        
-                        } 
-                    }catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null,
-                    "Entrada inválida para " + nomeCampo + ". Digite um número entre 0 e 10.");                        }
-                    
-                    campo.setText("");
-                    campo.requestFocus();
+    private Double NotaValidade(JTextField campo, String nomeCampo) {
+    String texto = campo.getText().trim();
+    if (texto.isEmpty()) {
+        JOptionPane.showMessageDialog(null,
+                "O campo " + nomeCampo + " está vazio. Preencha antes de continuar.");
+        campo.requestFocus();
+        return null;
+    }
 
-                }
-            }
+    try {
+        double nota = Double.parseDouble(texto);
+
+        if (nota >= 0 && nota <= 10) {
+            return nota;
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Nota inválida para " + nomeCampo + ". Deve ser entre 0 e 10.");
+
+            campo.setText("");
+            campo.requestFocus();
+            return null;
+      }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null,
+                "Digite um número válido para " + nomeCampo + ".");
+
+        campo.setText("");
+        campo.requestFocus();
+        return null;
+    }
+}
+            
     public void CadastroAlunos(){
 
             int n = Integer.parseInt(
@@ -91,29 +105,39 @@ public class SistemaEscolar {
             );
 
             if (result == JOptionPane.OK_OPTION) {
-        
+                if (campoNome.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "O campo Nome está vazio. Preencha antes de continuar.");
+                    i--;
+                    continue;
+                }
 
-                    double matematica= NotaValidade(campoMat, "Matemática");
-                    double portugues= NotaValidade(campoPort, "Português");
-                    double historia= NotaValidade(campoHist, "História");
-                    double geografia= NotaValidade(campoGeo, "Geografia");
-                    double ciencias= NotaValidade(campoCien, "Ciências");
-               
-               
-                    Alunos novoAluno = new Alunos(
-                    campoNome.getText(),
-                    matematica,
-                    portugues,
-                    historia,
-                    geografia,
-                    ciencias
+                Double matematica = NotaValidade(campoMat, "Matemática");
+                Double portugues = NotaValidade(campoPort, "Português");
+                Double historia = NotaValidade(campoHist, "História");
+                Double geografia = NotaValidade(campoGeo, "Geografia");
+                Double ciencias = NotaValidade(campoCien, "Ciências");
+
+                if (matematica == null || portugues == null || historia == null || geografia == null || ciencias == null) {
+                    i--;
+                    continue;
+                }
+
+                Alunos novoAluno = new Alunos(
+                        campoNome.getText(),
+                        matematica,
+                        portugues,
+                        historia,
+                        geografia,
+                        ciencias
                 );
                 pilha.push(novoAluno);
                 pilha2.push(novoAluno);
 
-            
-            }
                 JOptionPane.showMessageDialog(null, "Aluno " + campoNome.getText() + " adicionado com sucesso!");
+            } else {
+                return;
+            }
 
         
     }
