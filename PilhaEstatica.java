@@ -1,36 +1,29 @@
 public class PilhaEstatica {
+
     private Alunos[] pilha;
     private int topo;
 
-    public PilhaEstatica(int capacidade){
+    public PilhaEstatica(int capacidade) {
         pilha = new Alunos[capacidade];
         topo = -1;
     }
 
-    public boolean cheia(){
-        return topo == pilha.length - 1;
-    }
-
-    public boolean vazia(){
+    public boolean isEmpty() {
         return topo == -1;
     }
 
-    public boolean push(Alunos aluno){
-        if (cheia()) return false;
-        pilha[++topo] = aluno;
-        return true;
+    public boolean cheia() {
+        return topo == pilha.length - 1;
     }
 
-    public Alunos pop(){
-        if (vazia()) return null;
+    public void push(Alunos a) {
+        if (!cheia()) {
+            pilha[++topo] = a;
+        }
+    }
+
+    public Alunos pop() {
+        if (isEmpty()) return null;
         return pilha[topo--];
-    }
-
-    public Alunos[] getPilha(){
-        return pilha;
-    }
-
-    public int getTopo(){
-        return topo;
     }
 }

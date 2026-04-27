@@ -2,17 +2,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 public class SistemaEscolar {        
     private int capacidade = 0;
-    PilhaEstatica pilha = new PilhaEstatica(60);
-    PilhaEstatica pilha2 = new PilhaEstatica(60);
-    private Alunos[] alunos= new Alunos[60];
+    PilhaEstatica pilha = new PilhaEstatica(capacidade);
+    PilhaEstatica pilha2 = new PilhaEstatica(capacidade);
 
-    
 
     public SistemaEscolar(){
+
+
         int opcao=0;
+
         do{
             String MenuEscolar = "-----Sistema Escolar de Alunos-----\n"
                     + "1. Cadastrar Alunos\n"
@@ -21,9 +23,8 @@ public class SistemaEscolar {
                     + "4. Sair";
 
             String leitura = JOptionPane.showInputDialog(null, MenuEscolar, "Menu Escolar", JOptionPane.QUESTION_MESSAGE);
-            if (leitura == null) {
-                break;
-            }
+            if (leitura == null) break;
+
             opcao = Integer.parseInt(leitura);
 
             switch (opcao) {
@@ -41,10 +42,30 @@ public class SistemaEscolar {
     }while (opcao != 4);
     }
 
+    private double NotaValidade (JTextField campo, String nomeCampo) {
+                double nota;
+                while (true) {
+                    try {
+                        nota = Double.parseDouble(campo.getText());
+                        if (nota >= 0 && nota <= 10) {
+                            return nota;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Nota inválida para " + nomeCampo + ". deve ser entre 0 e 10.");                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Entrada inválida para " + nomeCampo + ". Por favor, insira um número entre 0 e 10.");
+                    }
+                    campo.setText("");
+                    campo.requestFocus();
+
+                }
+            }
     public void CadastroAlunos(){
 
-
-        if (capacidade < 60) {
+            int n = Integer.parseInt(
+                    JOptionPane.showInputDialog("Quantidade de alunos:")
+            );
+        
+            for (int i = 0; i < n; i++) {
             JTextField campoNome = new JTextField();
             JTextField campoMat = new JTextField();
             JTextField campoPort = new JTextField();
@@ -60,106 +81,109 @@ public class SistemaEscolar {
                 "Nota de Geografia:", campoGeo,
                 "Nota de Ciências:", campoCien
             };
-
+            
             int result = JOptionPane.showConfirmDialog(
                 null, // Centraliza
                 formulario, // Campos
-                "Cadastro de Aluno",  // Título
+                "Cadastro de Aluno" + (i+1), // Título
                 JOptionPane.OK_CANCEL_OPTION  // Definidos botões OK e Cancelar
             );
 
             if (result == JOptionPane.OK_OPTION) {
-                Alunos novoAluno = new Alunos(
+        
+
+                    double matematica= NotaValidade(campoMat, "Matemática");
+                    double portugues= NotaValidade(campoPort, "Português");
+                    double historia= NotaValidade(campoHist, "História");
+                    double geografia= NotaValidade(campoGeo, "Geografia");
+                    double ciencias= NotaValidade(campoCien, "Ciências");
+               
+               
+                    Alunos novoAluno = new Alunos(
                     campoNome.getText(),
-                    Double.parseDouble(campoMat.getText()),
-                    Double.parseDouble(campoPort.getText()),
-                    Double.parseDouble(campoHist.getText()),
-                    Double.parseDouble(campoGeo.getText()),
-                    Double.parseDouble(campoCien.getText())
+                    matematica,
+                    portugues,
+                    historia,
+                    geografia,
+                    ciencias
                 );
                 pilha.push(novoAluno);
+                pilha2.push(novoAluno);
+
             
-                JOptionPane.showMessageDialog(null, "Aluno adicionado com sucesso!");
-                capacidade++;
-        }
-        }else {
-            JOptionPane.showMessageDialog(null, "Lista de alunos lotada!");
-        }
+            }
+                JOptionPane.showMessageDialog(null, "Corrija os valores antes de Continuar.");
+                JOptionPane.showMessageDialog(null, "Aluno " + campoNome.getText() + " adicionado com sucesso!");
+
+        
     }
 
-     public void recarregarPilha2(){
-
-        PilhaEstatica temp = new PilhaEstatica(60);
-
-        while(!pilha.vazia()){
-            temp.push(pilha.pop());
         }
 
-        while(!temp.vazia()){
-            Alunos a = temp.pop();
-            pilha.push(a);
-            pilha2.push(a);
-        }
-    }
 
-    
 
-    //Método para calcular a média e situação dos alunos
+
+
+
     public void CalcularSituacao(){
 
-        recarregarPilha2();
-        
-        for(int i=0;i<capacidade;i++){
-            Alunos a = alunos[i];
+        PilhaEstatica temp = new PilhaEstatica(60);
+        while(!pilha2.isEmpty()){
+        Alunos novoAluno = pilha2.pop();
 
-            double media = (a.getNotaMatematica()+a.getNotaPortugues()+
-                            a.getNotaHistoria()+a.getNotaGeografia()+
-                            a.getNotaCiencias())/5;
+        double media = (novoAluno.getNotaMatematica()+novoAluno.getNotaPortugues()+
+                        novoAluno.getNotaHistoria()+novoAluno.getNotaGeografia()+
+                        novoAluno.getNotaCiencias())/5;
 
-            a.setMedia(media);
+        novoAluno.setMedia(media);
 
-        if (a.getNotaMatematica() >= 6 && a.getNotaPortugues() >= 6 && a.getNotaHistoria() >= 6 && a.getNotaGeografia() >= 6 && a.getNotaCiencias() >= 6){
-            a.setSituacao("Aprovado");
-        } else if (a.getNotaMatematica() < 6 || a.getNotaPortugues() < 6 || a.getNotaHistoria() < 6 || a.getNotaGeografia() < 6 || a.getNotaCiencias() < 6 && a.getMedia() == 6){ 
-            a.setSituacao("Recuperação");
+        boolean Situacao =novoAluno.getNotaMatematica() >= 6 && novoAluno.getNotaPortugues() >= 6 
+                        && novoAluno.getNotaHistoria() >= 6 && novoAluno.getNotaGeografia() >= 6 
+                        && novoAluno.getNotaCiencias() >= 6;
+
+        if (Situacao) {
+            novoAluno.setSituacao("Aprovado");
         } else {
-            a.setSituacao("Reprovado");
-        }
+            novoAluno.setSituacao("Reprovado");
         }
 
-        JOptionPane.showMessageDialog(null,"Cálculo realizado!");
+        temp.push(novoAluno);
+        
+
+            while(!pilha.isEmpty()){
+            pilha2.push(temp.pop());
+             }
+
+        }
     }
-
-
+    
 
     public void ExibirAlunos(){
 
         String[] colunas = {"Nome", "Nota Matemática", "Nota Português", "Nota História", "Nota Geografia", "Nota Ciências", "Média", "Situação"};
         Object[][] dados = new Object[capacidade][8];
 
+        PilhaEstatica temp = new PilhaEstatica(60);
+
+
         for(int i =0; i<capacidade; i++){
-            dados[i][0] = alunos[i].getNome();
-            dados[i][1] = alunos[i].getNotaMatematica();
-            dados[i][2] = alunos[i].getNotaPortugues();
-            dados[i][3] = alunos[i].getNotaHistoria();
-            dados[i][4] = alunos[i].getNotaGeografia();
-            dados[i][5] = alunos[i].getNotaCiencias();
-            dados[i][6] = alunos[i].getMedia();
-            dados[i][7] = alunos[i].getSituacao();
+
+            Alunos novoAlunos = pilha.pop();
+
+
+            dados[i][0] = novoAlunos.getNome();
+            dados[i][1] = novoAlunos.getNotaMatematica();
+            dados[i][2] = novoAlunos.getNotaPortugues();
+            dados[i][3] = novoAlunos.getNotaHistoria();
+            dados[i][4] = novoAlunos.getNotaGeografia();
+            dados[i][5] = novoAlunos.getNotaCiencias();
+            dados[i][6] = novoAlunos.getMedia();
+            dados[i][7] = novoAlunos.getSituacao();
         } 
         
         JTable sistema = new JTable(dados, colunas);
         JScrollPane scroll = new JScrollPane(sistema);
         JOptionPane.showMessageDialog(null, scroll, "Sistema Escolar de Alunos", JOptionPane.INFORMATION_MESSAGE);
 
-
-
-
-
-    }
-
-
-    public static void main(String[] args) {
-        new SistemaEscolar();
     }
 }
