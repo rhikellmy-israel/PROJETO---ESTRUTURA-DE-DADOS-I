@@ -49,10 +49,12 @@ public class SistemaEscolar {
                         if (nota >= 0 && nota <= 10) {
                             return nota;
                         } else {
-                            JOptionPane.showMessageDialog(null, "Nota inválida para " + nomeCampo + ". deve ser entre 0 e 10.");                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Entrada inválida para " + nomeCampo + ". Por favor, insira um número entre 0 e 10.");
-                    }
+                            JOptionPane.showMessageDialog(null, "Nota inválida para " + nomeCampo + ". deve ser entre 0 e 10.");                        
+                        } 
+                    }catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null,
+                    "Entrada inválida para " + nomeCampo + ". Digite um número entre 0 e 10.");                        }
+                    
                     campo.setText("");
                     campo.requestFocus();
 
@@ -111,7 +113,6 @@ public class SistemaEscolar {
 
             
             }
-                JOptionPane.showMessageDialog(null, "Corrija os valores antes de Continuar.");
                 JOptionPane.showMessageDialog(null, "Aluno " + campoNome.getText() + " adicionado com sucesso!");
 
         
@@ -184,5 +185,9 @@ public class SistemaEscolar {
         JScrollPane scroll = new JScrollPane(sistema);
         JOptionPane.showMessageDialog(null, scroll, "Sistema Escolar de Alunos", JOptionPane.INFORMATION_MESSAGE);
 
+    }
+
+    public static void main(String[] args) {
+        new SistemaEscolar();
     }
 }
