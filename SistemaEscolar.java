@@ -41,16 +41,20 @@ public class SistemaEscolar {
     }while (opcao != 4);
     }
 
-    private Double NotaValidade(JTextField campo, String nomeCampo) {
-    String texto = campo.getText().trim();
-    if (texto.isEmpty()) {
-        JOptionPane.showMessageDialog(null,
-                "O campo " + nomeCampo + " está vazio. Preencha antes de continuar.");
-        campo.requestFocus();
-        return null;
-    }
+private Double NotaValidade(JTextField campo, String nomeCampo) {
 
-    try {
+    while (true) {
+
+        String texto = campo.getText().trim();
+
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "O campo " + nomeCampo + " está vazio. Preencha antes de continuar.");
+            campo.requestFocus();
+            return null;
+        }
+
+
         double nota = Double.parseDouble(texto);
 
         if (nota >= 0 && nota <= 10) {
@@ -62,15 +66,7 @@ public class SistemaEscolar {
             campo.setText("");
             campo.requestFocus();
             return null;
-      }
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null,
-                "Digite um número válido para " + nomeCampo + ".");
-
-        campo.setText("");
-        campo.requestFocus();
-        return null;
+        }
     }
 }
             
@@ -105,12 +101,7 @@ public class SistemaEscolar {
             );
 
             if (result == JOptionPane.OK_OPTION) {
-                if (campoNome.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null,
-                            "O campo Nome está vazio. Preencha antes de continuar.");
-                    i--;
-                    continue;
-                }
+ 
 
                 Double matematica = NotaValidade(campoMat, "Matemática");
                 Double portugues = NotaValidade(campoPort, "Português");
@@ -118,10 +109,7 @@ public class SistemaEscolar {
                 Double geografia = NotaValidade(campoGeo, "Geografia");
                 Double ciencias = NotaValidade(campoCien, "Ciências");
 
-                if (matematica == null || portugues == null || historia == null || geografia == null || ciencias == null) {
-                    i--;
-                    continue;
-                }
+                
 
                 Alunos novoAluno = new Alunos(
                         campoNome.getText(),
@@ -135,8 +123,6 @@ public class SistemaEscolar {
                 pilha2.push(novoAluno);
 
                 JOptionPane.showMessageDialog(null, "Aluno " + campoNome.getText() + " adicionado com sucesso!");
-            } else {
-                return;
             }
 
         
